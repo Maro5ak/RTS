@@ -33,6 +33,7 @@ public class Peasant : MonoBehaviour{
     private void GetBackHome(){
         agent.SetDestination(home.position);
         agent.stoppingDistance = 2;
+        Home.Instance.AddToInventory(new Wood());
         gotWood = false;
     }
 }

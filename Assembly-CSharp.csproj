@@ -45,13 +45,15 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Buildings\AIController.cs" />
+     <Compile Include="Assets\Scripts\AIController.cs" />
      <Compile Include="Assets\Scripts\Buildings\CubeBuilding.cs" />
      <Compile Include="Assets\Scripts\Buildings\CylinderBuilding.cs" />
      <Compile Include="Assets\Scripts\Buildings\Home.cs" />
      <Compile Include="Assets\Scripts\Buildings\IEnvironment.cs" />
+     <Compile Include="Assets\Scripts\Buildings\Materials.cs" />
      <Compile Include="Assets\Scripts\Buildings\SphereBuilding.cs" />
      <Compile Include="Assets\Scripts\Buildings\TreeClass.cs" />
+     <Compile Include="Assets\Scripts\Buildings\Wood.cs" />
      <Compile Include="Assets\Scripts\EventHandler.cs" />
      <Compile Include="Assets\Scripts\Peasant.cs" />
      <Compile Include="Assets\Scripts\PlacementSize.cs" />

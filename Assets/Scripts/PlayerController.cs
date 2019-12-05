@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour{
 
     public GameObject gameObjectToPlaceSize;
-    Transform cube, sphere, cylinder;
-    public Transform peasant;
+    Transform cube, sphere, cylinder, peasant;
 
     public LayerMask groundLayerMask;
     public int gridSize;
@@ -16,12 +15,14 @@ public class PlayerController : MonoBehaviour{
     private  MeshRenderer mesh;
     private Transform toPlace;
     private Vector3 cursorPos;
+    private List<Transform> peasantCount = new List<Transform>();
 
     void Start(){
         //Loading in prefabs
         cube = Resources.Load<Transform>("Buildings/Cube");
         sphere = Resources.Load<Transform>("Buildings/Sphere");
         cylinder = Resources.Load<Transform>("Buildings/Cylinder");
+        peasant = Resources.Load<Transform>("Peasant");
 
         //Events
         EventHandler.OnCollisionWithScenery += GetCollision;
@@ -38,34 +39,42 @@ public class PlayerController : MonoBehaviour{
     }
 
     void Update(){
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+        if(Physics.Raycast(ray, out hitInfo, Mathf.Infinity)){
+            if(Input.GetMouseButtonDown(0)){
+                if(hitInfo.collider.tag == "Home"){
+                    Home.Instance.GetInventory();
+                }
+            }
+        }
+
         if(Input.GetKeyDown(KeyCode.Alpha1)){
             toPlace = cube;
-            blockChosen = true;
+            ToggleBlockChosen();
             TogglePlaceObjectSize();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha2)){
             toPlace = sphere;
-            blockChosen = true;
+            ToggleBlockChosen();
             TogglePlaceObjectSize();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha3)){
             toPlace = cylinder;
-            blockChosen = true;
+            ToggleBlockChosen();
             TogglePlaceObjectSize();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha4)){
             toPlace = peasant;
-            blockChosen = true;
+            ToggleBlockChosen();
             TogglePlaceObjectSize();
         }
         if(Input.GetMouseButtonDown(0) && blockChosen){
             PlaceUnit(toPlace);
         }
-
-
-        
-       
     }
+
 
     void LateUpdate(){
         ShowObject(gameObjectToPlaceSize);
@@ -80,6 +89,10 @@ public class PlayerController : MonoBehaviour{
             worldPos = new Vector3(0,0,0);
         }
         if(canPlace){
+            if(objectToPlace == peasant){
+                peasantCount.Add(peasant);
+                objectToPlace.name = "Peasant " + peasantCount.Count;
+            }
             Instantiate(objectToPlace, worldPos, default);
             blockChosen = false;
         }
@@ -124,6 +137,10 @@ public class PlayerController : MonoBehaviour{
     internal void TogglePlaceObjectSize(){
         placeObjectActive = !placeObjectActive;
         gameObjectToPlaceSize.SetActive(placeObjectActive);
+    }
+
+    internal void ToggleBlockChosen(){
+        blockChosen = !blockChosen;
     }
 
 }

@@ -17,9 +17,9 @@ public class AIController : MonoBehaviour{
 
     void Start(){
         npcSelected = false;
-        peasant = GameObject.Find("Peasant").GetComponent<Peasant>();
+        
 
-        getWood.onClick.AddListener(delegate {GetWood(); });
+        //getWood.onClick.AddListener(delegate {GetWood(); });
     }
 
     void Update(){
@@ -28,6 +28,7 @@ public class AIController : MonoBehaviour{
         if(Physics.Raycast(ray, out hitInfo, Mathf.Infinity, npcMask)){ 
             if(Input.GetMouseButtonDown(0)){
                 Debug.Log("Selected " + hitInfo.collider.name);
+                peasant = GameObject.Find(hitInfo.collider.name).GetComponent<Peasant>();
                 npcSelected = !npcSelected;
             }
         }
@@ -36,14 +37,13 @@ public class AIController : MonoBehaviour{
                 Debug.Log("Going for " + hitInfo.collider.name);
                 npcSelected = !npcSelected;
                 target = hitInfo.collider.name;
+                
                 peasant.GetWood(hitInfo.collider.transform); 
             }
         }
     }
 
-    private void GetWood(){
-        peasant.GetWood(tree);
-    }
+
 
 
 
