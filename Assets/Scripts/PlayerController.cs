@@ -42,8 +42,8 @@ public class PlayerController : MonoBehaviour{
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
-        if(Physics.Raycast(ray, out hitInfo, Mathf.Infinity)){
-            if(Input.GetMouseButtonDown(0)){
+        if(Input.GetMouseButtonDown(0)){
+            if(Physics.Raycast(ray, out hitInfo, Mathf.Infinity)){
                 if(hitInfo.collider.tag == "Home"){
                     Home.Instance.GetInventory();
                 }

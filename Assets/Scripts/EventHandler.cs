@@ -7,6 +7,8 @@ public class EventHandler : MonoBehaviour{
     public static event CollisionHandler OnCollisionWithScenery;
     public static event CollisionHandler OnCollisionWithSceneryExit;
 
+    public delegate void InventoryHandler();
+
 
     public static void HandleCollisionEnter(Collider col){
         if(OnCollisionWithScenery != null){

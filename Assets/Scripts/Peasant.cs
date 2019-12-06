@@ -5,16 +5,14 @@ using UnityEngine.AI;
 
 public class Peasant : MonoBehaviour{
 
-    [HideInInspector]
-    public bool gotWood;
 
     Transform home;
     NavMeshAgent agent;
+    public List<Materials> inventory = new List<Materials>();
 
 
 
     void Start(){
-        gotWood = false;
         home = GameObject.Find("Home").GetComponent<Transform>();
         agent = GetComponent<NavMeshAgent>();
     }
@@ -25,15 +23,14 @@ public class Peasant : MonoBehaviour{
         agent.stoppingDistance = 0;
     }
 
-    void Update(){
-        if(gotWood)
-        GetBackHome();
-    }
 
-    private void GetBackHome(){
+    public void GetBackHome(){
         agent.SetDestination(home.position);
         agent.stoppingDistance = 2;
-        Home.Instance.AddToInventory(new Wood());
-        gotWood = false;
+        
+    }
+
+    public void ClearInventory(){
+        inventory.Clear();
     }
 }
