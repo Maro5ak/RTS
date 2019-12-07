@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TreeClass : MonoBehaviour, IEnvironment{
-
+    public Vector3 size { get; set; }
     public LayerMask npcLayer;
 
     private Collider[] colliders;
@@ -26,4 +26,8 @@ public class TreeClass : MonoBehaviour, IEnvironment{
             }
         }
     }
+
+    public void SetSize(Vector3 size){
+       this.size = size; 
+    }  
 }

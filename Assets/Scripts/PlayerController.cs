@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour{
 
@@ -12,10 +13,11 @@ public class PlayerController : MonoBehaviour{
 
 
     private bool placeObjectActive, canPlace, blockChosen;
-    private  MeshRenderer mesh;
+    private MeshRenderer mesh;
     private Transform toPlace;
     private Vector3 cursorPos;
     private List<Transform> peasantCount = new List<Transform>();
+    private PlacementSize placementSize;
 
     void Start(){
         //Loading in prefabs
@@ -30,11 +32,13 @@ public class PlayerController : MonoBehaviour{
 
         //Assigning
         mesh = gameObjectToPlaceSize.GetComponent<MeshRenderer>();
+        placementSize = gameObjectToPlaceSize.GetComponent<PlacementSize>();
 
         //Other stuff
         gameObjectToPlaceSize.SetActive(placeObjectActive);
         blockChosen = false;
         canPlace = true;
+
 
     }
 
@@ -52,21 +56,25 @@ public class PlayerController : MonoBehaviour{
 
         if(Input.GetKeyDown(KeyCode.Alpha1)){
             toPlace = cube;
+            placementSize.SetSize(cube.transform.localScale);
             ToggleBlockChosen();
             TogglePlaceObjectSize();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha2)){
             toPlace = sphere;
+            placementSize.SetSize(sphere.transform.localScale);
             ToggleBlockChosen();
             TogglePlaceObjectSize();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha3)){
             toPlace = cylinder;
+            placementSize.SetSize(cylinder.transform.localScale);
             ToggleBlockChosen();
             TogglePlaceObjectSize();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha4)){
             toPlace = peasant;
+            placementSize.SetSize(new Vector3(1, 1, 1));
             ToggleBlockChosen();
             TogglePlaceObjectSize();
         }
@@ -94,6 +102,7 @@ public class PlayerController : MonoBehaviour{
                 objectToPlace.name = "Peasant " + peasantCount.Count;
             }
             Instantiate(objectToPlace, worldPos, default);
+            
             blockChosen = false;
         }
         else{

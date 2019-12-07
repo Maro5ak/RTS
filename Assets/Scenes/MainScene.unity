@@ -592,7 +592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d48ab811b83926545a345b967fd8d6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getWood: {fileID: 1227144439}
+  setRoutine: {fileID: 1227144439}
   tree: {fileID: 331221257}
   npcMask:
     serializedVersion: 2

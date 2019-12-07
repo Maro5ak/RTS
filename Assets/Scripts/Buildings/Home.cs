@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Home : MonoBehaviour, IEnvironment{
     public static Home Instance{get; set;}
+    public Vector3 size { get; set; }
     public LayerMask npcLayerMask;
 
     private List<Materials> materials = new List<Materials>();
@@ -21,9 +22,11 @@ public class Home : MonoBehaviour, IEnvironment{
     private void Update() {
         colliders = Physics.OverlapSphere(transform.position, 1, npcLayerMask);
         foreach(Collider col in colliders){
-            if(col.GetComponent<Peasant>().inventory.Count != 0)
-            materials.Add(col.GetComponent<Peasant>().inventory[0]);
-            col.GetComponent<Peasant>().ClearInventory();
+            if(col.GetComponent<Peasant>().inventory.Count != 0){
+                materials.Add(col.GetComponent<Peasant>().inventory[0]);
+                col.GetComponent<Peasant>().ClearInventory();
+                col.GetComponent<Peasant>().GetWood();
+            }
         }
     }
 
@@ -43,4 +46,8 @@ public class Home : MonoBehaviour, IEnvironment{
         }
         Debug.Log(materials.Count);
     }
+
+    public void SetSize(Vector3 size){
+       this.size = size; 
+    }  
 }

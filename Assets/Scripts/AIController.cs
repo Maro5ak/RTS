@@ -6,20 +6,18 @@ using UnityEngine.UI;
 public class AIController : MonoBehaviour{
 
     public static string target;
-    public Button getWood;
+    public Button setRoutine;
     public Transform tree;
     public LayerMask npcMask, environmentMask;
 
     private Peasant peasant;
-    private bool npcSelected;
-
-
+    private bool npcSelected, routineActive;
 
     void Start(){
         npcSelected = false;
-        
 
-        //getWood.onClick.AddListener(delegate {GetWood(); });
+        setRoutine.onClick.AddListener(delegate {SetRoutine(); });
+        setRoutine.gameObject.SetActive(routineActive);
     }
 
     void Update(){
@@ -37,12 +35,24 @@ public class AIController : MonoBehaviour{
                 Debug.Log("Going for " + hitInfo.collider.name);
                 npcSelected = !npcSelected;
                 target = hitInfo.collider.name;
-                
-                peasant.GetWood(hitInfo.collider.transform); 
+                tree = hitInfo.collider.transform;
+                ToggleRoutineButton();
+                setRoutine.gameObject.SetActive(routineActive);
             }
+
         }
     }
 
+    void SetRoutine(){
+        peasant.GetWood(tree);
+        ToggleRoutineButton();
+        setRoutine.gameObject.SetActive(routineActive);
+
+    }
+
+    internal void ToggleRoutineButton(){
+        routineActive = !routineActive;
+    }
 
 
 
