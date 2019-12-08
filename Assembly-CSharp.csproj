@@ -58,6 +58,8 @@
      <Compile Include="Assets\Scripts\Peasant.cs" />
      <Compile Include="Assets\Scripts\PlacementSize.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\UI\HomeBaseUI.cs" />
+     <Compile Include="Assets\Scripts\UI\UIEventHandler.cs" />
  <Reference Include="Unity.XR.Management">
  <HintPath>C:/Users/maros/RTS/Library/ScriptAssemblies/Unity.XR.Management.dll</HintPath>
  </Reference>

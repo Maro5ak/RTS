@@ -9,8 +9,15 @@ public class Home : MonoBehaviour, IEnvironment{
 
     private List<Materials> materials = new List<Materials>();
     private Collider[] colliders;
+    private bool pathReset;
+    private Transform newTree;
 
     void Start() {
+        //event subs
+        EventHandler.OnPathReset += ResetPath;
+
+        //Other
+        pathReset = false;
         if(Instance != null && Instance != this){
             Destroy(gameObject);
         }
@@ -25,7 +32,22 @@ public class Home : MonoBehaviour, IEnvironment{
             if(col.GetComponent<Peasant>().inventory.Count != 0){
                 materials.Add(col.GetComponent<Peasant>().inventory[0]);
                 col.GetComponent<Peasant>().ClearInventory();
+                if(pathReset){
+                    if(newTree == null){
+                        Debug.Log("No trees left!");
+                        col.GetComponent<Peasant>().Stop();
+                    }
+                    else{
+                        col.GetComponent<Peasant>().GetWood(newTree);
+                    }
+                    AIController.target = newTree.name;
+                    pathReset = false;
+                }
+                else{
                 col.GetComponent<Peasant>().GetWood();
+                pathReset = false;
+                }
+                GetInventory();
             }
         }
     }
@@ -34,20 +56,22 @@ public class Home : MonoBehaviour, IEnvironment{
         Debug.Log(col.name);
     }
 
-    public void AddToInventory(List<Materials> material){
-        foreach(Materials mat in material){
-            materials.Add(mat);
-        }
-    }
-
     public void GetInventory(){
+        int mats = 0;
         foreach(Materials item in materials){
-            Debug.Log(item.GetName() + ": " + item.GetValue());
+            mats += item.GetValue();
         }
-        Debug.Log(materials.Count);
+        UIEventHandler.InventoryUpdated(mats);
     }
 
     public void SetSize(Vector3 size){
        this.size = size; 
-    }  
+    }
+
+    private void ResetPath(Transform target){
+        newTree = target;
+        pathReset = true;
+        
+    }
+
 }

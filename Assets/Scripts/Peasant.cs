@@ -13,6 +13,7 @@ public class Peasant : MonoBehaviour{
 
 
     void Start(){
+
         home = GameObject.Find("Home").GetComponent<Transform>();
         agent = GetComponent<NavMeshAgent>();
     }
@@ -36,5 +37,9 @@ public class Peasant : MonoBehaviour{
 
     public void ClearInventory(){
         inventory.Clear();
+    }
+
+    public void Stop(){
+        agent.SetDestination(transform.position);
     }
 }

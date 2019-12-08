@@ -49,9 +49,13 @@ public class PlayerController : MonoBehaviour{
         if(Input.GetMouseButtonDown(0)){
             if(Physics.Raycast(ray, out hitInfo, Mathf.Infinity)){
                 if(hitInfo.collider.tag == "Home"){
-                    Home.Instance.GetInventory();
+                    UIEventHandler.BuildingSelect(hitInfo.collider.transform);
                 }
             }
+        }
+
+        if(Input.GetMouseButtonDown(1)){
+            UIEventHandler.BuildingDeselect();
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha1)){

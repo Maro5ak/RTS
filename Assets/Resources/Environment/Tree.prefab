@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3925066218942666288}
   - component: {fileID: 9084687741685876364}
   - component: {fileID: 4113179408662312165}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Trunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 6295798293459850588}
   - component: {fileID: 2503394598624980339}
   - component: {fileID: 1802801173447632340}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,3 +262,6 @@ MonoBehaviour:
   npcLayer:
     serializedVersion: 2
     m_Bits: 2048
+  environmentLayer:
+    serializedVersion: 2
+    m_Bits: 1024
