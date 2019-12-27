@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Materials{
+public abstract class Material{
    protected int value;
    protected string name;
 

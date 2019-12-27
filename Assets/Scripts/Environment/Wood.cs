@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wood : Materials{
+public class Wood : Material{
 
     public Wood(){
        this.value = 10;

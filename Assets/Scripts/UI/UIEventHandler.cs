@@ -10,8 +10,14 @@ public class UIEventHandler : MonoBehaviour{
     public delegate void BuildingDeselected();
     public static event BuildingDeselected OnBuildingDeselect;
 
-    public delegate void InventoryUpdate(int value);
+    public delegate void InventoryUpdate(List<Material> materials);
     public static event InventoryUpdate OnInventoryUpdate;
+
+    public delegate void UnitUpdate(int units, Transform transform);
+    public static event UnitUpdate OnUnitUpdate;
+
+    public delegate void ActionSelect(AIController.Actions action);
+    public static event ActionSelect OnActionSelected;
 
     public static void BuildingSelect(Transform building){
         if(OnBuildingSelect != null){
@@ -25,9 +31,21 @@ public class UIEventHandler : MonoBehaviour{
         }
     }
 
-    public static void InventoryUpdated(int value){
+    public static void InventoryUpdated(List<Material> materials){
         if(OnInventoryUpdate != null){
-            OnInventoryUpdate(value);
+            OnInventoryUpdate(materials);
+        }
+    }
+
+    public static void UnitGathered(int units, Transform transform){
+        if(OnUnitUpdate != null){
+            OnUnitUpdate(units, transform);
+        }
+    }
+
+    public static void ActionSelected(AIController.Actions action){
+        if(OnActionSelected != null){
+            OnActionSelected(action);
         }
     }
 

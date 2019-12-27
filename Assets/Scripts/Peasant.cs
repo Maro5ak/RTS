@@ -4,34 +4,37 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Peasant : MonoBehaviour{
+    public string target;
     Transform home;
     NavMeshAgent agent;
-    public List<Materials> inventory = new List<Materials>();
+    public List<Material> inventory = new List<Material>();
     
-    Vector3 treeLocation;
+    Vector3 matLocation;
 
 
 
     void Start(){
-
         home = GameObject.Find("Home").GetComponent<Transform>();
         agent = GetComponent<NavMeshAgent>();
     }
 
 
-    public void GetWood(Transform woodLocation){
-        treeLocation = woodLocation.position;
-        agent.SetDestination(treeLocation);
+    public IEnumerator GetMaterial(Transform materialLocation){
+        matLocation = materialLocation.position;
+        agent.SetDestination(matLocation);
         agent.stoppingDistance = 0;
+        yield break;
     }
 
-    public void GetWood(){
-        agent.SetDestination(treeLocation);
+    public IEnumerator GetMaterial(){
+        agent.SetDestination(matLocation);
         agent.stoppingDistance = 0;
+        yield break;
     }
-    public void GetBackHome(){
+    public IEnumerator GetBackHome(){
         agent.SetDestination(home.position);
-        agent.stoppingDistance = 2;
+        agent.stoppingDistance = 3;
+        yield break;
         
     }
 
@@ -42,4 +45,6 @@ public class Peasant : MonoBehaviour{
     public void Stop(){
         agent.SetDestination(transform.position);
     }
+
+    
 }

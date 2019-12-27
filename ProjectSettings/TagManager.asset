@@ -8,6 +8,9 @@ TagManager:
   - Environment
   - Tree
   - Home
+  - Rock
+  - Ground
+  - NPC
   layers:
   - Default
   - TransparentFX

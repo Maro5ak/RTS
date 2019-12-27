@@ -7,10 +7,10 @@ public class Home : MonoBehaviour, IEnvironment{
     public Vector3 size { get; set; }
     public LayerMask npcLayerMask;
 
-    private List<Materials> materials = new List<Materials>();
+    private List<Material> materials = new List<Material>();
     private Collider[] colliders;
     private bool pathReset;
-    private Transform newTree;
+    private Transform newMaterial;
 
     void Start() {
         //event subs
@@ -27,28 +27,32 @@ public class Home : MonoBehaviour, IEnvironment{
     }
 
     private void Update() {
-        colliders = Physics.OverlapSphere(transform.position, 1, npcLayerMask);
+        colliders = Physics.OverlapSphere(transform.position, 3f, npcLayerMask);
         foreach(Collider col in colliders){
             if(col.GetComponent<Peasant>().inventory.Count != 0){
                 materials.Add(col.GetComponent<Peasant>().inventory[0]);
                 col.GetComponent<Peasant>().ClearInventory();
+                GetInventory();
                 if(pathReset){
-                    if(newTree == null){
-                        Debug.Log("No trees left!");
+                    if(newMaterial == null){
+                        Debug.Log("No material left!");
                         col.GetComponent<Peasant>().Stop();
                     }
                     else{
-                        col.GetComponent<Peasant>().GetWood(newTree);
+                        StartCoroutine(col.GetComponent<Peasant>().GetMaterial(newMaterial));
+                        col.GetComponent<Peasant>().target = newMaterial.name;
+                        
                     }
-                    AIController.target = newTree.name;
                     pathReset = false;
+                   
                 }
                 else{
-                col.GetComponent<Peasant>().GetWood();
+                StartCoroutine(col.GetComponent<Peasant>().GetMaterial());
                 pathReset = false;
                 }
-                GetInventory();
+                
             }
+            
         }
     }
 
@@ -57,11 +61,7 @@ public class Home : MonoBehaviour, IEnvironment{
     }
 
     public void GetInventory(){
-        int mats = 0;
-        foreach(Materials item in materials){
-            mats += item.GetValue();
-        }
-        UIEventHandler.InventoryUpdated(mats);
+        UIEventHandler.InventoryUpdated(materials);
     }
 
     public void SetSize(Vector3 size){
@@ -69,7 +69,7 @@ public class Home : MonoBehaviour, IEnvironment{
     }
 
     private void ResetPath(Transform target){
-        newTree = target;
+        newMaterial = target;
         pathReset = true;
         
     }

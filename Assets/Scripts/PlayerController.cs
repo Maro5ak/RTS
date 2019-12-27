@@ -6,16 +6,19 @@ using UnityEngine.AI;
 public class PlayerController : MonoBehaviour{
 
     public GameObject gameObjectToPlaceSize;
-    Transform cube, sphere, cylinder, peasant;
+    
 
     public LayerMask groundLayerMask;
     public int gridSize;
 
-
-    private bool placeObjectActive, canPlace, blockChosen;
+    //Buildings 
+    Transform cube, sphere, cylinder, peasant, road;
+    
+    private bool placeObjectActive, canPlace, blockChosen, toggleRoadPlacing;
+    
     private MeshRenderer mesh;
     private Transform toPlace;
-    private Vector3 cursorPos;
+    private Vector3 cursorPos, currentCursorPos, endCursorPos;
     private List<Transform> peasantCount = new List<Transform>();
     private PlacementSize placementSize;
 
@@ -25,6 +28,7 @@ public class PlayerController : MonoBehaviour{
         sphere = Resources.Load<Transform>("Buildings/Sphere");
         cylinder = Resources.Load<Transform>("Buildings/Cylinder");
         peasant = Resources.Load<Transform>("Peasant");
+        road = Resources.Load<Transform>("Buildings/Road");
 
         //Events
         EventHandler.OnCollisionWithScenery += GetCollision;
@@ -46,9 +50,9 @@ public class PlayerController : MonoBehaviour{
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
-        if(Input.GetMouseButtonDown(0)){
+        if(Input.GetMouseButtonDown(0) && !blockChosen){
             if(Physics.Raycast(ray, out hitInfo, Mathf.Infinity)){
-                if(hitInfo.collider.tag == "Home"){
+                if(hitInfo.collider.tag != "Ground" && hitInfo.collider.tag != "NPC"){
                     UIEventHandler.BuildingSelect(hitInfo.collider.transform);
                 }
             }
@@ -79,6 +83,12 @@ public class PlayerController : MonoBehaviour{
         else if(Input.GetKeyDown(KeyCode.Alpha4)){
             toPlace = peasant;
             placementSize.SetSize(new Vector3(1, 1, 1));
+            ToggleBlockChosen();
+            TogglePlaceObjectSize();
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha5)){
+            toPlace = road;
+            placementSize.SetSize(road.transform.localScale);
             ToggleBlockChosen();
             TogglePlaceObjectSize();
         }
@@ -120,7 +130,6 @@ public class PlayerController : MonoBehaviour{
         RaycastHit hitInfo;
         if(Physics.Raycast(ray, out hitInfo, Mathf.Infinity, groundLayerMask)){ 
             if(placeObjectActive && Input.GetMouseButtonDown(0) && canPlace){
-
                 TogglePlaceObjectSize();
             }
             if(placeObjectActive){
@@ -132,6 +141,7 @@ public class PlayerController : MonoBehaviour{
             cursorPos = hitInfo.point;
             }
             placeObject.transform.position = cursorPos;
+            
         }
     }
     void GetCollision(Collider col){

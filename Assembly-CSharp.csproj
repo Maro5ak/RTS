@@ -49,16 +49,20 @@
      <Compile Include="Assets\Scripts\Buildings\CubeBuilding.cs" />
      <Compile Include="Assets\Scripts\Buildings\CylinderBuilding.cs" />
      <Compile Include="Assets\Scripts\Buildings\Home.cs" />
-     <Compile Include="Assets\Scripts\Buildings\IEnvironment.cs" />
-     <Compile Include="Assets\Scripts\Buildings\Materials.cs" />
      <Compile Include="Assets\Scripts\Buildings\SphereBuilding.cs" />
-     <Compile Include="Assets\Scripts\Buildings\TreeClass.cs" />
-     <Compile Include="Assets\Scripts\Buildings\Wood.cs" />
+     <Compile Include="Assets\Scripts\Environment\EnvironmentClass.cs" />
+     <Compile Include="Assets\Scripts\Environment\IEnvironment.cs" />
+     <Compile Include="Assets\Scripts\Environment\Material.cs" />
+     <Compile Include="Assets\Scripts\Environment\RockClass.cs" />
+     <Compile Include="Assets\Scripts\Environment\Stone.cs" />
+     <Compile Include="Assets\Scripts\Environment\TreeClass.cs" />
+     <Compile Include="Assets\Scripts\Environment\Wood.cs" />
      <Compile Include="Assets\Scripts\EventHandler.cs" />
      <Compile Include="Assets\Scripts\Peasant.cs" />
      <Compile Include="Assets\Scripts\PlacementSize.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\UI\HomeBaseUI.cs" />
+     <Compile Include="Assets\Scripts\UI\PlayerUI.cs" />
+     <Compile Include="Assets\Scripts\UI\StructureUI.cs" />
      <Compile Include="Assets\Scripts\UI\UIEventHandler.cs" />
  <Reference Include="Unity.XR.Management">
  <HintPath>C:/Users/maros/RTS/Library/ScriptAssemblies/Unity.XR.Management.dll</HintPath>
